@@ -1,0 +1,18 @@
+.countCardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 40vw;
+}
+
+.countCardContainer img {
+    width: 20px;
+    height: 20px;
+    margin-left: 14px;
+}
+
+.countCardContainer p {
+    width: 171px;
+    /* background-color: aqua; */
+}

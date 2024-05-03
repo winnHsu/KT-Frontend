@@ -1,0 +1,55 @@
+/* CategoryForm.css */
+.category-form-container {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    width: 28vw;
+}
+
+.category-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.category-form-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+}
+
+.category-form label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.category-form input[type="text"],
+.category-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.category-form textarea {
+    height: 80px;
+}
+
+.create-button {
+    background-color: #5D9E52;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}

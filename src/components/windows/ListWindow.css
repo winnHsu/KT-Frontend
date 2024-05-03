@@ -1,0 +1,56 @@
+.dataListContainer {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: #DDDDDD;
+    border-style: solid;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.dataListTitle {
+    border-radius: 6px;
+    color: #999999;
+    background-color: #DDDDDD;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 22px;
+    margin: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dataListButton {
+    display: flex;
+    flex-direction: row;
+}
+
+.itemListContainer {
+    margin: 20px;
+    overflow-x: auto;
+    /* Enables scrolling on smaller screens */
+}
+
+.itemTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.itemTable th,
+.itemTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.itemTable th {
+    background-color: #f4f4f4;
+}
+
+.itemTable td {
+    background-color: #fff;
+}
+
+.itemTable tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}

@@ -1,0 +1,27 @@
+.itemsContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 31px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}

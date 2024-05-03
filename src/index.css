@@ -11,3 +11,90 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@keyframes floatDown {
+  from {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: floatDown 0.5s ease-out forwards;
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  margin: 0px;
+  margin-top: 8px;
+}
+
+.page-button {
+  margin: 29px;
+  margin-left: 9px;
+  border-width: 0px;
+  font-size: 14px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.page-topbar-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-topbar-counts {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 12px;
+  left: 9px;
+  right: 29px;
+  background-color: white;
+  z-index: 1000;
+  list-style-type: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.dropdown-menu li {
+  display: block;
+  font-size: 18px;
+  padding: 12px;
+  padding-left: 16px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f6f6f6;
+}

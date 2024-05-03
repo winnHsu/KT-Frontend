@@ -1,0 +1,25 @@
+.detailContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.detail {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.detail ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.detail li {
+    padding: 4px 0;
+}

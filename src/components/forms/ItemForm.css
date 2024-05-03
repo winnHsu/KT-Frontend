@@ -1,0 +1,79 @@
+.itemFormContainer {
+    background: #fff;
+    margin: 20px;
+}
+
+.itemForm {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.itemFormTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.itemFormTitle h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.itemForm input[type="text"],
+.itemForm input[type="number"],
+.itemForm textarea,
+.itemForm select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.itemForm textarea {
+    height: 80px;
+}
+
+.itemForm label {
+    display: block;
+    margin: 10px 0;
+}
+
+.itemForm input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.createButton {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.createButton:hover {
+    background-color: #45a049;
+}
+
+.itemFormLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.itemFormRight {
+    display: flex;
+    flex-direction: column;
+}

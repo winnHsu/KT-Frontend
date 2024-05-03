@@ -1,0 +1,35 @@
+.searchInput {
+    flex: 1;
+    height: 40px;
+    /* Full width */
+    padding: 8px 16px;
+    /* Top and bottom padding, left and right padding */
+    margin: 29px;
+    /* Margin to separate from other elements */
+    box-sizing: border-box;
+    /* Include padding and border in the width */
+    border: 2px solid #ccc;
+    /* Subtle border */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Reasonable font size */
+    background-color: white;
+    /* Background color */
+    padding-left: 36px;
+    /* Make text input start far from the icon */
+    transition: border-color 0.3s;
+    /* Smooth transition for hover effects */
+}
+
+.searchInput:focus {
+    border-color: #666;
+    /* Darker border on focus for visibility */
+    outline: none;
+    /* Remove the default focus outline */
+}
+
+.searchInput::placeholder {
+    color: #aaa;
+    /* Placeholder text color */
+}
