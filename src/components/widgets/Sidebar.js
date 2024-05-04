@@ -1,22 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Sidebar.css';
-import icon_home from '../../assets/icons/icon_home.png'
-import icon_build from '../../assets/icons/icon_build.png'
-import icon_document from '../../assets/icons/icon_document.png'
-import icon_group from '../../assets/icons/icon_group.png'
-import icon_help from '../../assets/icons/icon_help.png'
-import icon_integration from '../../assets/icons/icon_integration.png'
-import icon_item from '../../assets/icons/icon_item.png'
-import icon_supply from '../../assets/icons/icon_supply.png'
-import icon_sale from '../../assets/icons/icon_sale.png'
-import icon_report from '../../assets/icons/icon_report.png'
-import icon_profile from '../../assets/icons/icon_profile.png'
-import icon_manufact from '../../assets/icons/icon_manufact.png'
-import icon_logout from '../../assets/icons/icon_logout.png'
-import icon_location from '../../assets/icons/icon_location.png'
+import './Sidebar.css'; // Import sidebar styles
+import icon_home from '../../assets/icons/icon_home.png'; // Import icons used in the sidebar
+import icon_build from '../../assets/icons/icon_build.png';
+import icon_document from '../../assets/icons/icon_document.png';
+import icon_group from '../../assets/icons/icon_group.png';
+import icon_help from '../../assets/icons/icon_help.png';
+import icon_integration from '../../assets/icons/icon_integration.png';
+import icon_item from '../../assets/icons/icon_item.png';
+import icon_supply from '../../assets/icons/icon_supply.png';
+import icon_sale from '../../assets/icons/icon_sale.png';
+import icon_report from '../../assets/icons/icon_report.png';
+import icon_profile from '../../assets/icons/icon_profile.png';
+import icon_manufact from '../../assets/icons/icon_manufact.png';
+import icon_logout from '../../assets/icons/icon_logout.png';
+import icon_location from '../../assets/icons/icon_location.png';
 
 function Sidebar() {
+    // Define main navigation items with paths, labels, and icons
     const sidebarItems = [
         { path: "/", label: "Home", icon: icon_home },
         { path: "/items", label: "Items", icon: icon_item },
@@ -30,6 +31,7 @@ function Sidebar() {
         { path: "/reports", label: "Reports", icon: icon_report },
     ];
 
+    // Define user-specific navigation items with paths, labels, and icons
     const sidebarUserItems = [
         { path: "/help", label: "Help!", icon: icon_help },
         { path: "/integrations", label: "Integrations", icon: icon_integration },
@@ -37,6 +39,7 @@ function Sidebar() {
         { path: "/my-profile", label: "My Profile", icon: icon_profile }
     ]
 
+    // Render the sidebar with two lists of navigation items
     return (
         <div className="sidebar">
             <ul>
@@ -59,9 +62,8 @@ function Sidebar() {
                     </li>
                 ))}
             </ul>
-
         </div>
     );
 }
 
-export default Sidebar;
+export default Sidebar; // Export the Sidebar component for use in other parts of the app

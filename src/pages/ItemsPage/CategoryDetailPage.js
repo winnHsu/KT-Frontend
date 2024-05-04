@@ -5,17 +5,22 @@ import { deleteCategory, fetchCategoryById } from '../../api/categoriesApi';
 import './DetailPage.css'
 import TextButton from '../../components/buttons/TextButton';
 
+// Component for displaying detailed information about a category.
 const CategoryDetailPage = () => {
+    // Hooks for authentication, navigation, and URL parameter retrieval.
     const { token } = useAuth();
     const { categoryId } = useParams();
     const navigate = useNavigate();
+
+    // State for category data and error handling.
     const [category, setCategory] = useState(null);
     const [error, setError] = useState('');
 
+    // Fetch category details on mount or categoryId/token change.
     useEffect(() => {
         const loadCategoryDetail = async () => {
             try {
-                const data = await fetchCategoryById(token, categoryId); // Replace 'your-token-here' with actual token handling logic
+                const data = await fetchCategoryById(token, categoryId);
                 setCategory(data);
             } catch (err) {
                 console.error('Failed to fetch category details:', err);
@@ -26,19 +31,23 @@ const CategoryDetailPage = () => {
         loadCategoryDetail();
     }, [categoryId, token]);
 
+    // Handler for deleting a category and navigating back.
     const onDelete = () => {
-        deleteCategory(token, categoryId)
+        deleteCategory(token, categoryId);
         navigate(-1);
     };
 
+    // Render error message if error exists.
     if (error) {
         return <div>Error: {error}</div>;
     }
 
+    // Render loading message if category data is not yet fetched.
     if (!category) {
         return <div>Loading category details...</div>;
     }
 
+    // Render category details page.
     return (
         <div className="detailContainer">
             <h1>Category Details: {category.name}</h1>

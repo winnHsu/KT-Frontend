@@ -11,13 +11,12 @@ function LoginPage() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
+    // Handle user login
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
-                username,
-                password
-            });
+            const response = await axios.post('http://127.0.0.1:8000/api/token/', { username, password });
+            // Authenticate and navigate to home if tokens received
             if (response.data.access && response.data.refresh) {
                 login(response.data.access, response.data.refresh);
                 navigate('/');
@@ -30,7 +29,7 @@ function LoginPage() {
         }
     };
 
-
+    // Render login form
     return (
         <form onSubmit={handleLogin} className="login-container">
             <h2>Login</h2>

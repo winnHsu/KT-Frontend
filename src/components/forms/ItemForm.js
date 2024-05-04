@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { createItem, fetchItems } from '../../api/itemsApi'; // Ensure fetchItems is implemented
+import { createItem, fetchItems } from '../../api/itemsApi';
 import { useAuth } from '../../context/AuthContext';
 import { fetchCategories } from '../../api/categoriesApi';
 import './ItemForm.css';
 import TextButton from '../buttons/TextButton';
 
+// Component for creating new items with both simple and advanced form options.
 const ItemForm = ({ onClose }) => {
     const { token } = useAuth();
     const [showAdvanced, setShowAdvanced] = useState(false);
     const [itemName, setItemName] = useState('');
+    // Initial state setups for item attributes
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState(0);
@@ -28,9 +30,10 @@ const ItemForm = ({ onClose }) => {
     const [keywords, setKeywords] = useState('');
     const [externalLink, setExternalLink] = useState('');
     const [defaultLocation, setDefaultLocation] = useState('');
-    const [items, setItems] = useState([]); // For the variant_of dropdown
+    const [items, setItems] = useState([]);
     const [categories, setCategories] = useState([]);
 
+    // Fetch categories and items on token change for dropdown options.
     useEffect(() => {
         if (token) {
             fetchCategories(token).then(setCategories).catch(console.error);
@@ -38,6 +41,7 @@ const ItemForm = ({ onClose }) => {
         }
     }, [token]);
 
+    // Handle item creation with error logging.
     const onItemCreate = async () => {
         const itemData = {
             name: itemName,
@@ -64,12 +68,13 @@ const ItemForm = ({ onClose }) => {
 
         try {
             await createItem(token, itemData);
-            onClose(); // Assuming you pass an onClose prop for closing the form modal
+            onClose(); // Close the form upon successful creation.
         } catch (error) {
             console.error('Error creating item:', error);
         }
     };
 
+    // Toggle between simple and advanced view options.
     const toggleAdvanced = () => setShowAdvanced(!showAdvanced);
 
     return (
@@ -80,6 +85,7 @@ const ItemForm = ({ onClose }) => {
             </div>
             <form className="itemForm">
                 <div className="itemFormLeft">
+                    {/* Input fields for item details, toggled for advanced options */}
                     <input type="text" value={itemName} onChange={e => setItemName(e.target.value)} placeholder="Item Name" required />
                     {showAdvanced && <input type="text" value={SKU} onChange={e => setSKU(e.target.value)} placeholder="SKU" />}
                     <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" />
@@ -106,6 +112,7 @@ const ItemForm = ({ onClose }) => {
                     <input type="number" value={desiredStock} onChange={e => setDesiredStock(parseInt(e.target.value))} placeholder="Desired Stock" />
                 </div>
                 <div className="itemFormRight">
+                    {/* Checkboxes for item properties, with labels */}
                     <label><input type="checkbox" checked={isAssembly} onChange={e => setIsAssembly(e.target.checked)} /> Assembly</label>
                     <label><input type="checkbox" checked={isComponent} onChange={e => setIsComponent(e.target.checked)} /> Component</label>
                     <label><input type="checkbox" checked={isPurchaseable} onChange={e => setIsPurchaseable(e.target.checked)} /> Purchaseable</label>
@@ -115,6 +122,7 @@ const ItemForm = ({ onClose }) => {
                     {showAdvanced && <label><input type="checkbox" checked={isTemplate} onChange={e => setIsTemplate(e.target.checked)} /> Template</label>}
                     {showAdvanced && <label><input type="checkbox" checked={isActive} onChange={e => setIsActive(e.target.checked)} /> Active</label>}
                     <div className="formButtons">
+                        {/* Buttons for toggling view and submitting the form */}
                         <TextButton onClick={toggleAdvanced} text={showAdvanced ? 'SIMPLE' : 'ADVANCED'} backgroundColor='#E0E0E0' color='#111111' />
                         <TextButton onClick={onItemCreate} text='CREATE' backgroundColor='#E0E0E0' color='#111111' />
                     </div>

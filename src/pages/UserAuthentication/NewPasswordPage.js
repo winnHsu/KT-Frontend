@@ -11,12 +11,11 @@ function NewPasswordPage() {
     const [stage, setStage] = useState(1);
     const navigate = useNavigate();
 
+    // Initiates password reset process by sending a reset email
     const handleSendEmail = async () => {
         try {
-            await axios.post('http://127.0.0.1:8000/api/password_reset/', {
-                email
-            });
-            setStage(2); // Move to enter code stage
+            await axios.post('http://127.0.0.1:8000/api/password_reset/', { email });
+            setStage(2); // Transition to reset code entry
             alert('Please check your email for the password reset code.');
         } catch (error) {
             console.error('Failed to send reset email:', error);
@@ -24,6 +23,7 @@ function NewPasswordPage() {
         }
     };
 
+    // Verifies reset code and updates password if matching
     const handleVerifyCodeAndResetPassword = async () => {
         if (password !== confirmPassword) {
             alert('Passwords do not match.');
@@ -31,13 +31,8 @@ function NewPasswordPage() {
         }
 
         try {
-            // Verify the reset code and reset the password in one step
-            await axios.post('http://127.0.0.1:8000/api/reset_password/', {
-                email,
-                code: resetCode,
-                new_password: password
-            });
-            setStage(3); // Move to reset confirmation stage
+            await axios.post('http://127.0.0.1:8000/api/reset_password/', { email, code: resetCode, new_password: password });
+            setStage(3); // Confirm password has been reset
             alert('Your password has been reset successfully.');
         } catch (error) {
             console.error('Failed to reset password:', error);
@@ -45,43 +40,24 @@ function NewPasswordPage() {
         }
     };
 
+    // Renders different UI based on the stage of password reset
     return (
         <div>
             {stage === 1 && (
                 <div>
                     <h2>Reset your password</h2>
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
+                    <input type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} />
                     <button onClick={handleSendEmail}>Send Reset Email</button>
-                    <TextButton text='Cnacel' backgroundColor='#4CAF50' color='#FFFFFF' onClick={() => navigate('/login')} />
+                    <TextButton text='Cancel' backgroundColor='#4CAF50' color='#FFFFFF' onClick={() => navigate('/login')} />
                 </div>
             )}
 
             {stage === 2 && (
                 <div>
                     <h2>Enter Reset Code and New Password</h2>
-                    <input
-                        type="text"
-                        placeholder="Enter Reset Code"
-                        value={resetCode}
-                        onChange={e => setResetCode(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="New Password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm New Password"
-                        value={confirmPassword}
-                        onChange={e => setConfirmPassword(e.target.value)}
-                    />
+                    <input type="text" placeholder="Enter Reset Code" value={resetCode} onChange={e => setResetCode(e.target.value)} />
+                    <input type="password" placeholder="New Password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <input type="password" placeholder="Confirm New Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                     <button onClick={handleVerifyCodeAndResetPassword}>Reset Password</button>
                     <TextButton text='Cancel' backgroundColor='#4CAF50' color='#FFFFFF' onClick={() => navigate('/login')} />
                 </div>

@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './ListWindow.css';
 
+// Define a component to display and sort a list of items.
 export default function ItemListWindow({ columns, filteredItems, categories }) {
+    // State to keep track of the current sort configuration
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
+    // Compute sorted items based on sort configuration and filter conditions
     const sortedItems = React.useMemo(() => {
         let sortableItems = [...filteredItems];
         if (sortConfig !== null) {
@@ -21,6 +24,7 @@ export default function ItemListWindow({ columns, filteredItems, categories }) {
         return sortableItems;
     }, [filteredItems, sortConfig]);
 
+    // Function to handle sort requests
     const requestSort = (key) => {
         let direction = 'ascending';
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -29,11 +33,13 @@ export default function ItemListWindow({ columns, filteredItems, categories }) {
         setSortConfig({ key, direction });
     };
 
+    // Function to render sorting arrows in table headers
     const renderSortingArrow = (key) => {
         if (sortConfig.key !== key) return null;
         return sortConfig.direction === 'ascending' ? ' ▲' : ' ▼';
     };
 
+    // Render the component with a table of items
     return (
         <div className="itemListContainer">
             <table className="itemTable">

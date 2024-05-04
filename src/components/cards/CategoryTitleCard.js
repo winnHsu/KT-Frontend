@@ -3,13 +3,17 @@ import { NavLink } from 'react-router-dom';
 import './CategoryTitleCard.css';
 import SearchBar from '../widgets/SearchBar';
 
+// Functional component to display a card for a category with a toggleable detailed view.
 export default function CategoryTitleCard({ title, categoryData }) {
+    // State to manage the toggle visibility of category details.
     const [isOpen, setIsOpen] = useState(false);
+    // State to handle the search input value.
     const [searchTerm, setSearchTerm] = useState('');
 
+    // Toggle function to expand or collapse category content.
     const toggleOpen = () => setIsOpen(!isOpen);
 
-    // Filter categories based on search term
+    // Filters categories by name based on the current search term.
     const filteredCategories = categoryData.filter(category =>
         category.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -36,7 +40,7 @@ export default function CategoryTitleCard({ title, categoryData }) {
                             ))}
                         </ul>
                     ) : (
-                        <p>No categories found matching your search.</p>
+                        <p>No categories found matching your search.</p> // Display message when no categories match the search.
                     )}
                 </div>
             )}

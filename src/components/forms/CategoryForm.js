@@ -3,8 +3,12 @@ import { createCategory, fetchCategories } from '../../api/categoriesApi';
 import { useAuth } from '../../context/AuthContext';
 import './CategoryForm.css';
 
+// Component for creating a new category
 export default function CategoryForm({ onClose }) {
+    // Auth context provides user token
     const { token } = useAuth();
+
+    // State management for form inputs
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [parent, setParent] = useState('');
@@ -12,18 +16,20 @@ export default function CategoryForm({ onClose }) {
     const [defaultLocation, setDefaultLocation] = useState('');
     const [categories, setCategories] = useState([]);
 
+    // Fetch categories on token change
     useEffect(() => {
         if (token) {
             fetchCategories(token).then(setCategories).catch(console.error);
         }
     }, [token]);
 
+    // Handles form submission for creating a new category
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const categoryData = { name, description, parent, keywords, default_location: defaultLocation };
             await createCategory(token, categoryData);
-            onClose(); // Close the form on success
+            onClose(); // Closes form on successful category creation
         } catch (error) {
             console.error('Error creating category:', error);
         }

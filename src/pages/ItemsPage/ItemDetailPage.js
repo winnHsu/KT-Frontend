@@ -1,61 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './DetailPage.css'
+import './DetailPage.css';
 import { deleteItem, fetchItemById } from '../../api/itemsApi';
 import { useAuth } from '../../context/AuthContext';
 import TextButton from '../../components/buttons/TextButton';
 
 const ItemDetailPage = () => {
-    const { token } = useAuth();
-    const { itemId } = useParams(); // Get item ID from URL
+    const { token } = useAuth(); // Authenticate user
+    const { itemId } = useParams(); // Extract item ID from URL parameters
     const navigate = useNavigate();
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState(null); // State for storing item details
 
+    // Fetch item details on component mount or when itemId/token changes
     useEffect(() => {
         fetchItemById(token, itemId)
-            .then(data => {
-                setItem(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .then(setItem)
+            .catch(error => console.error('Error:', error));
     }, [itemId, token]);
 
+    // Handle item deletion and navigate back
     const onDelete = () => {
         deleteItem(token, itemId);
-        navigate(-1);
+        navigate(-1); // Navigate to previous page
     };
 
+    // Display loading message if item details are not yet loaded
     if (!item) return <div>Loading...</div>;
 
+    // Render item details
     return (
         <div className="detailContainer">
             <h1>Item Details: {item.name}</h1>
             <TextButton onClick={onDelete} text='DELETE THIS ITEM' backgroundColor='#A82E26' color='#FFFFFF' />
-            <div className="detail">
-                <strong>SKU:</strong> {item.SKU || 'N/A'}
-            </div>
-            <div className="detail">
-                <strong>Description:</strong> {item.description || 'No description provided'}
-            </div>
-            <div className="detail">
-                <strong>Category:</strong> {item.category ? item.category.name : 'No category'}
-            </div>
-            <div className="detail">
-                <strong>Tags:</strong> {item.tags || 'No tags'}
-            </div>
-            <div className="detail">
-                <strong>Price:</strong> ${item.price}
-            </div>
-            <div className="detail">
-                <strong>Units:</strong> {item.units || 'Not specified'}
-            </div>
-            <div className="detail">
-                <strong>Minimum Stock:</strong> {item.minimum_stock}
-            </div>
-            <div className="detail">
-                <strong>Desired Stock:</strong> {item.desired_stock}
-            </div>
+            <div className="detail"><strong>SKU:</strong> {item.SKU || 'N/A'}</div>
+            <div className="detail"><strong>Description:</strong> {item.description || 'No description provided'}</div>
+            <div className="detail"><strong>Category:</strong> {item.category ? item.category.name : 'No category'}</div>
+            <div className="detail"><strong>Tags:</strong> {item.tags || 'No tags'}</div>
+            <div className="detail"><strong>Price:</strong> ${item.price}</div>
+            <div className="detail"><strong>Units:</strong> {item.units || 'Not specified'}</div>
+            <div className="detail"><strong>Minimum Stock:</strong> {item.minimum_stock}</div>
+            <div className="detail"><strong>Desired Stock:</strong> {item.desired_stock}</div>
             <div className="detail">
                 <strong>Status:</strong>
                 <ul>
@@ -82,15 +66,9 @@ const ItemDetailPage = () => {
                     <li>Net Stock: {item.net_stock}</li>
                 </ul>
             </div>
-            <div className="detail">
-                <strong>External Link:</strong> {item.external_link || 'No link provided'}
-            </div>
-            <div className="detail">
-                <strong>Default Location:</strong> {item.default_location || 'Not specified'}
-            </div>
-            <div className="detail">
-                <strong>Variant Of:</strong> {item.variant_of ? `ID: ${item.variant_of.id}` : 'This item is not a variant'}
-            </div>
+            <div className="detail"><strong>External Link:</strong> {item.external_link || 'No link provided'}</div>
+            <div className="detail"><strong>Default Location:</strong> {item.default_location || 'Not specified'}</div>
+            <div className="detail"><strong>Variant Of:</strong> {item.variant_of ? `ID: ${item.variant_of.id}` : 'This item is not a variant'}</div>
         </div>
     );
 };

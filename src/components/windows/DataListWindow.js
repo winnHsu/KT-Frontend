@@ -8,9 +8,11 @@ import DisplayOptionForm from '../forms/DisplayOptionForm';
 import SearchBar from '../widgets/SearchBar';
 import ItemListWindow from './ItemListWindow';
 
+// DataListWindow component for displaying a list of data items with customizable visibility and search.
 export default function DataListWindow({ title, data, greenButton, greenClick, blueButton, blueClick, selectButton, token }) {
-    const [categories, setCategories] = useState({});
-    const [searchTerm, setSearchTerm] = useState('');
+    const [categories, setCategories] = useState({}); // State for category details fetched from API.
+    const [searchTerm, setSearchTerm] = useState(''); // State for managing search input.
+    // Default settings for data columns shown in the UI.
     const columnSettings = [
         { key: 'SKU', label: 'SKU', visible: true },
         { key: 'name', label: 'Name', visible: true },
@@ -22,13 +24,15 @@ export default function DataListWindow({ title, data, greenButton, greenClick, b
         { key: 'net_stock', label: 'Net Stock', visible: false },
         { key: 'available_stock', label: 'Available Stock', visible: true },
     ];
-    const [columns, setColumns] = useState(columnSettings);
-    const [showDisplayOptions, setShowDisplayOptions] = useState(false);
+    const [columns, setColumns] = useState(columnSettings); // State for managing column visibility.
+    const [showDisplayOptions, setShowDisplayOptions] = useState(false); // State to toggle display options.
 
-    const filteredItems = data.filter(items =>
-        items.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // Filter items based on search term.
+    const filteredItems = data.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Toggle visibility of a column.
     const toggleColumnVisibility = key => {
         setColumns(columns.map(column => {
             if (column.key === key) {
@@ -38,21 +42,24 @@ export default function DataListWindow({ title, data, greenButton, greenClick, b
         }));
     };
 
+    // Toggle the display options panel.
     const handleDisplayOptionsToggle = () => {
         setShowDisplayOptions(prev => !prev);
     };
 
+    // Effect to fetch categories as needed.
     useEffect(() => {
         const fetchCategories = async () => {
             const newCategories = {};
             let shouldUpdate = false;
 
+            // Fetch categories if not already fetched.
             for (const item of data) {
                 if (item.category && !categories[item.category]) {
                     shouldUpdate = true;
                     try {
                         const categoryData = await fetchCategoryById(token, item.category);
-                        newCategories[item.category] = categoryData;  // Store the entire category data object
+                        newCategories[item.category] = categoryData; // Store the fetched category data.
                     } catch (error) {
                         console.error('Error fetching category:', error);
                         newCategories[item.category] = { error: 'Failed to fetch category' };
@@ -60,6 +67,7 @@ export default function DataListWindow({ title, data, greenButton, greenClick, b
                 }
             }
 
+            // Update state with new categories.
             if (shouldUpdate) {
                 setCategories(prev => ({ ...prev, ...newCategories }));
             }
@@ -70,7 +78,7 @@ export default function DataListWindow({ title, data, greenButton, greenClick, b
         }
     }, [data, token]);
 
-
+    // Render component UI.
     return (
         <div className='dataListContainer'>
             <CategoryTitleCard title={title} categoryData={Object.values(categories)} />
@@ -80,7 +88,6 @@ export default function DataListWindow({ title, data, greenButton, greenClick, b
                 {selectButton && <SelectButton text={selectButton} data={['Batch Edit', 'Export']} />}
                 <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} placeholder={'Search Name...'} />
                 {data && <TextButton onClick={handleDisplayOptionsToggle} text="COLUMN" backgroundColor='#596D79' color='#FFFFFF' />}
-                {/* {data && <TextButton onClick={handleFilterToggle} text="FILTER" backgroundColor='#424242' color='#FFFFFF' />} */}
             </div>
             {showDisplayOptions && <DisplayOptionForm options={columns} onToggleColumn={toggleColumnVisibility} onClose={() => setShowDisplayOptions(false)} />}
             {data ?
